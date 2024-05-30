@@ -1,0 +1,43 @@
+{
+    "name": "elytica/elytica-socialite",
+    "description": "Socialite provider for Laravel.",
+    "type": "library",
+    "keywords": [
+        "elytica",
+        "Laravel",
+        "Socialite",
+        "OAuth",
+        "authentication"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ruan Luies",
+            "email": "ruan@elytica.com"
+        }
+    ],
+    "require": {
+        "illuminate/support": "^11.9",
+        "laravel/socialite": "^5.14"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Elytica\\Socialite\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Elytica\\Socialite\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Elytica\\Socialite\\ElyticaServiceProvider"
+            ]
+        }
+    }
+}
