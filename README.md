@@ -1,5 +1,5 @@
 # Elytica Socialite Driver
-This package ass elytica socialite driver.
+This package adds elytica socialite driver.
 To install
 ```
 composer require elytica/elytica-socialite
