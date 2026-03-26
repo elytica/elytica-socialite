@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Elytica\Socialite;
 
 use Illuminate\Support\Str;

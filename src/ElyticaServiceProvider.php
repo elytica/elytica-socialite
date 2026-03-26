@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Elytica\Socialite;
 
 use Illuminate\Support\ServiceProvider;
@@ -27,9 +29,6 @@ class ElyticaServiceProvider extends ServiceProvider
         );
     }
 
-    /**
-     * Extend Socialite with the Elytica Service Provider.
-     */
     protected function extendSocialite(): void
     {
         $socialite = $this->app->make(Factory::class);
@@ -42,4 +41,3 @@ class ElyticaServiceProvider extends ServiceProvider
         });
     }
 }
-

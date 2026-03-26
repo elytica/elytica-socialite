@@ -13,8 +13,13 @@ return new class extends Migration
             $table->text('elytica_service_token')->nullable();
             $table->text('elytica_service_refresh_token')->nullable();
             $table->timestamp('elytica_service_token_expires_at')->nullable();
-            $table->string('password')->nullable()->change();
         });
+
+        if (Schema::hasColumn('users', 'password')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->string('password')->nullable()->change();
+            });
+        }
     }
 
     public function down(): void
