@@ -27,7 +27,7 @@ class ElyticaProviderTest extends TestCase
         );
     }
 
-    public function test_auth_url_contains_correct_base(): void
+    public function test_auth_url_uses_default_base(): void
     {
         $url = $this->callProtected('getAuthUrl', ['test-state']);
 
@@ -36,11 +36,35 @@ class ElyticaProviderTest extends TestCase
         $this->assertStringContainsString('client_id=test-client-id', $url);
     }
 
-    public function test_token_url(): void
+    public function test_token_url_uses_default_base(): void
     {
-        $url = $this->callProtected('getTokenUrl');
+        $this->assertSame(
+            'https://service.elytica.com/oauth/token',
+            $this->callProtected('getTokenUrl')
+        );
+    }
 
-        $this->assertSame('https://service.elytica.com/oauth/token', $url);
+    public function test_custom_base_url_is_applied(): void
+    {
+        $this->provider->setBaseUrl('https://sandbox.elytica.com');
+
+        $this->assertSame(
+            'https://sandbox.elytica.com/oauth/token',
+            $this->callProtected('getTokenUrl')
+        );
+
+        $authUrl = $this->callProtected('getAuthUrl', ['test-state']);
+        $this->assertStringContainsString('https://sandbox.elytica.com/oauth/authorize', $authUrl);
+    }
+
+    public function test_set_base_url_strips_trailing_slash(): void
+    {
+        $this->provider->setBaseUrl('https://sandbox.elytica.com/');
+
+        $this->assertSame(
+            'https://sandbox.elytica.com/oauth/token',
+            $this->callProtected('getTokenUrl')
+        );
     }
 
     public function test_maps_user_to_object(): void

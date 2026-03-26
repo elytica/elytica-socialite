@@ -17,6 +17,7 @@ Add the following to your `.env` file:
 ELYTICA_SERVICE_CLIENT_ID=your-client-id
 ELYTICA_SERVICE_CLIENT_SECRET=your-client-secret
 ELYTICA_SERVICE_REDIRECT_URI=https://your-app.com/auth/callback
+ELYTICA_SERVICE_BASE_URL=https://service.elytica.com  # optional, defaults to service.elytica.com
 ```
 
 ## Usage

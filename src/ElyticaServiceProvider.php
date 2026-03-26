@@ -35,7 +35,10 @@ class ElyticaServiceProvider extends ServiceProvider
         $socialite = $this->app->make(Factory::class);
         $socialite->extend('elytica_service', function ($app) use ($socialite) {
             $config = $app['config']['services.elytica_service'];
-            return $socialite->buildProvider(ElyticaProvider::class, $config);
+            $provider = $socialite->buildProvider(ElyticaProvider::class, $config);
+            $provider->setBaseUrl($config['base_url'] ?? 'https://service.elytica.com');
+
+            return $provider;
         });
     }
 }

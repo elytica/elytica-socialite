@@ -7,19 +7,28 @@ use Laravel\Socialite\Two\User;
 
 class ElyticaProvider extends AbstractProvider
 {
+    protected string $baseUrl = 'https://service.elytica.com';
+
+    public function setBaseUrl(string $baseUrl): static
+    {
+        $this->baseUrl = rtrim($baseUrl, '/');
+
+        return $this;
+    }
+
     protected function getAuthUrl($state): string
     {
-        return $this->buildAuthUrlFromBase('https://service.elytica.com/oauth/authorize', $state);
+        return $this->buildAuthUrlFromBase("{$this->baseUrl}/oauth/authorize", $state);
     }
 
     protected function getTokenUrl(): string
     {
-        return 'https://service.elytica.com/oauth/token';
+        return "{$this->baseUrl}/oauth/token";
     }
 
     protected function getUserByToken($token): array
     {
-        $response = $this->getHttpClient()->get('https://service.elytica.com/api/user', [
+        $response = $this->getHttpClient()->get("{$this->baseUrl}/api/user", [
             'headers' => [
                 'Authorization' => 'Bearer ' . $token,
             ],
