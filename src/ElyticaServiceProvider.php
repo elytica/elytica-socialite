@@ -3,18 +3,13 @@
 namespace Elytica\Socialite;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Config;
 use Laravel\Socialite\Contracts\Factory;
 
 class ElyticaServiceProvider extends ServiceProvider
 {
     use PublishesMigrations;
-    /**
-     * Bootstrap any package services.
-     *
-     * @return void
-     */
-    public function boot()
+
+    public function boot(): void
     {
         $this->app->booted(function () {
             $this->extendSocialite();
@@ -23,19 +18,13 @@ class ElyticaServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../config/elytica.php' => config_path('elytica.php'),
         ], 'config');
+    }
+
+    public function register(): void
+    {
         $this->mergeConfigFrom(
             __DIR__ . '/../config/elytica.php', 'services'
         );
-    }
-
-    /**
-     * Register any package services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
     }
 
     /**

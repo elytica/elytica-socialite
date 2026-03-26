@@ -1,23 +1,23 @@
 <?php
+
 namespace Elytica\Socialite;
 
 use Laravel\Socialite\Two\AbstractProvider;
 use Laravel\Socialite\Two\User;
-use Laravel\Socialite\Two\ProviderInterface;
 
-class ElyticaProvider extends AbstractProvider implements ProviderInterface
+class ElyticaProvider extends AbstractProvider
 {
-    protected function getAuthUrl($state)
+    protected function getAuthUrl($state): string
     {
         return $this->buildAuthUrlFromBase('https://service.elytica.com/oauth/authorize', $state);
     }
 
-    protected function getTokenUrl()
+    protected function getTokenUrl(): string
     {
         return 'https://service.elytica.com/oauth/token';
     }
 
-    protected function getUserByToken($token)
+    protected function getUserByToken($token): array
     {
         $response = $this->getHttpClient()->get('https://service.elytica.com/api/user', [
             'headers' => [
@@ -28,15 +28,14 @@ class ElyticaProvider extends AbstractProvider implements ProviderInterface
         return json_decode($response->getBody()->getContents(), true);
     }
 
-    protected function mapUserToObject(array $user)
+    protected function mapUserToObject(array $user): User
     {
         return (new User)->setRaw($user)->map([
-            'id' => $user['id'],
+            'id'       => $user['id'] ?? null,
             'nickname' => null,
-            'name'  => $user['name'],
-            'email' => $user['email'],
-            'avatar' => null,
+            'name'     => $user['name'] ?? null,
+            'email'    => $user['email'] ?? null,
+            'avatar'   => null,
         ]);
     }
-
 }
