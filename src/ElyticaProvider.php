@@ -28,7 +28,7 @@ class ElyticaProvider extends AbstractProvider
         return $this;
     }
 
-    public function refreshToken(string $refreshToken): array
+    public function refreshToken($refreshToken): array
     {
         $response = $this->getHttpClient()->post($this->getTokenUrl(), [
             RequestOptions::FORM_PARAMS => [
